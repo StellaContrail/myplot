@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>MyPlot.js</title>
+        <script src="../myplot.js"></script>
+        <style>
+            html, body {
+                height: 100%;
+                width: 100%;
+                margin: 0;
+            }
+            #container {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="plot"></div>
+            <span id="time"></span>
+        </div>
+
+        <script>
+            let loadTime = -performance.now();
+                        
+            let myplot = new MyPlot( {
+                el: '.plot',
+                size: { width: 800, height: 600 },
+                range: { xmin: -10, xmax: 10, ymin: -1, ymax: 1 },
+                style: { tics: { x:5, y:7 } },
+                samples: 70
+            });
+            
+            myplot.setTitle("Cos + Sin");
+            myplot.setXLabel("X");
+            myplot.setYLabel("Y");
+            myplot.setXTics();
+            myplot.setYTics(1);
+            
+            loadTime += performance.now();
+
+            let i = 0;
+            function plot() {
+                const startTime = performance.now() - loadTime;
+
+                myplot.init();
+                myplot.setGrid();
+                myplot.setZeroAxis();
+                myplot.plot((x) => { return .8 * Math.cos(x + i * 0.1) }, true);
+                myplot.plot((x) => { return .5 * Math.sin(x*0.5 + i * 0.1) }, true);
+                i++;
+                
+                const endTime = performance.now();
+                console.log("[TIME] " + (endTime - startTime) + " ms");
+                document.getElementById("time").innerText = "Loaded in " + (endTime - startTime).toFixed(3) + " ms";
+                requestAnimationFrame(plot);
+            }
+            plot()
+        </script>
+    </body>
+</html>

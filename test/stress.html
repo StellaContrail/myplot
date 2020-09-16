@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>MyPlot.js</title>
+        <script src="../myplot.js"></script>
+        <style>
+            html, body {
+                height: 100%;
+                width: 100%;
+                margin: 0;
+            }
+            #container {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <div id="plot"></div>
+            <br>
+            <input type="number" id="target" min="0" max="100000" step="1000" value="1000" style="width: 100px;">
+            <input type="button" value="Plot" onclick="rePlot()">
+            <br>
+            <span id="time"></span>
+        </div>
+
+        <script>
+            let target = document.getElementById('target');
+            target.value = 1000;
+            function rePlot() {
+                $(".plot").innerHTML = "";
+                plot();
+            }
+        </script>
+        <script>
+            function plot() {
+                const startTime = performance.now();
+                            
+                let myplot = new MyPlot({
+                    el: '.plot',
+                    size: { width: 800, height: 600 },
+                    style: { tics: {x:5, y:5} },
+                    samples: target.value
+                });
+                
+                myplot.init();
+                myplot.setTitle("Stress Test");
+                myplot.setXLabel("X");
+                myplot.setYLabel("Y");
+                myplot.setXTics();
+                myplot.setYTics();
+                myplot.setGrid();
+                myplot.setZeroAxis();
+                myplot.plot((x) => { return 10 * Math.cos(x); }, false);
+
+                const endTime = performance.now();
+                console.log("[TIME] " + (endTime - startTime) + " ms");
+                document.getElementById("time").innerText = "Loaded in " + (endTime - startTime).toFixed(3) + " ms";
+            }
+            plot();
+        </script>
+    </body>
+</html>
