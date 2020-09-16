@@ -2,7 +2,7 @@
 Lightweight plotting library for Javascript
 
 ## Concept
-This library aims for fastest plotting speed with Canvas *at the sacrifice of design/functionality*.
+It aims for the library with fastest plotting speed with Canvas *at the sacrifice of design/functionality*.
 
 ### Why Canvas ?
 A lot of other plotting libraries use SVG format because of the browser compatibility, although SVG is usually slower than Canvas.
@@ -10,15 +10,20 @@ A lot of other plotting libraries use SVG format because of the browser compatib
 SVG vs canvas: how to choose :
 https://docs.microsoft.com/en-us/previous-versions/windows/internet-explorer/ie-developer/samples/gg193983(v=vs.85)
 
-For those who perform numerical simulations, speed and accuracy are more important than design and compatibility.
+Plus, for those who perform numerical simulations, speed and accuracy are more important than design and compatibility.
 
 ## Note
 It's still in development and far from completion.
 No recommendation for practical use.
 
+## Demo
+* [Cos + Sin Animation](https://stellacontrail.github.io/myplot/test/animation.html)
+* [1D Ball Trajectory](https://stellacontrail.github.io/myplot/test/trajectory.html)
+* [Stress test](https://stellacontrail.github.io/myplot/test/stress.html)
+
 ## Usage
 #### HTML
-The plot canvas is inserted into the div tag with ``` id="plot" ```.
+The plot canvas is inserted into the div tag with ``` id="plot" ```
 ```HTML
 <div id="plot"></div>
 ```
@@ -44,10 +49,9 @@ myplot.setYTics(1);
 myplot.setGrid();
 myplot.setZeroAxis();
 ```
-Finally you can plot with ``` MyPlot.plot(func(x: number): number, isLined: boolean) ```.
+Finally you can plot with ``` MyPlot.plot(func(x: number): number, isLined: boolean) ```
 ```Javascript
 myplot.plot((x) => {
   return Math.cos(x);
 }, true);
 ```
-
